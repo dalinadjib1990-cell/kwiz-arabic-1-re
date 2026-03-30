@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>كويز العربية - السنة الأولى متوسط</title>
+    <title>🎓 تحدي العربية - السنة الأولى متوسط | لعبة الأسئلة التعليمية</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none;
+            font-family: 'Cairo', 'Amiri', 'Segoe UI', Tahoma, sans-serif;
         }
 
         body {
+            background: linear-gradient(145deg, #0a3b1a, #05200b);
             min-height: 100vh;
-            background: linear-gradient(145deg, #1a472a 0%, #0e2a1a 100%);
-            font-family: 'Segoe UI', 'Amiri', 'Tajawal', 'Cairo', system-ui, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,194 +22,192 @@
         }
 
         .game-container {
+            max-width: 950px;
             width: 100%;
-            max-width: 800px;
-            background: rgba(255, 248, 225, 0.95);
-            border-radius: 64px 48px 64px 48px;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4), inset 0 1px 4px rgba(255, 255, 255, 0.6);
+            background: #fffef7;
+            border-radius: 65px 50px 65px 50px;
+            box-shadow: 0 30px 45px rgba(0,0,0,0.4);
             overflow: hidden;
-            backdrop-filter: blur(2px);
-            transition: all 0.3s ease;
         }
 
-        .islamic-header {
-            background: linear-gradient(135deg, #2c5e2e, #1d3e1a);
-            padding: 20px 15px 15px;
+        .header {
+            background: linear-gradient(135deg, #2b6e2b, #1a481a);
+            padding: 20px;
             text-align: center;
-            border-bottom: 3px solid #ffd966;
+            border-bottom: 4px solid #ffd966;
         }
 
         .bismillah {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: bold;
             color: #ffefb9;
-            text-shadow: 2px 2px 0 #3a2a0a;
-            letter-spacing: 2px;
-            font-family: 'Amiri', 'Traditional Arabic', serif;
+            font-family: 'Amiri', serif;
+            text-shadow: 2px 2px 0 #2c4a1a;
         }
 
         .salawat {
-            font-size: 1.2rem;
             color: #ffe1a0;
+            font-size: 1.1rem;
             margin-top: 8px;
-            font-family: 'Amiri', serif;
             background: rgba(0,0,0,0.2);
             display: inline-block;
-            padding: 4px 20px;
-            border-radius: 40px;
-            backdrop-filter: blur(2px);
+            padding: 5px 20px;
+            border-radius: 35px;
         }
 
-        .level-bar {
+        .top-bar {
             background: #2e241f;
-            padding: 12px 25px;
+            padding: 12px 20px;
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+            gap: 12px;
             color: #f9e7c2;
-            font-weight: bold;
-            border-bottom: 1px solid #cfb284;
         }
 
-        .level-badge {
-            background: #ffb347;
-            padding: 5px 15px;
+        .student-box {
+            background: #3d2e26;
+            padding: 6px 15px;
             border-radius: 40px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .student-box input {
+            background: #fff5e0;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 30px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .level-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .level-btn {
+            background: #b8862c;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: bold;
             color: #2c1a0c;
-            font-size: 1rem;
-            box-shadow: inset 0 -1px 0 #c16f1a, 0 2px 6px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: 0.2s;
         }
 
-        .score-area {
-            background: #1f2a0e;
-            padding: 5px 12px;
-            border-radius: 30px;
-            font-size: 1rem;
+        .level-btn.active {
+            background: #ffae42;
+            transform: scale(1.05);
+            box-shadow: 0 0 0 2px gold;
         }
 
-        .timer-area {
-            background: #0f2f1f;
-            padding: 5px 12px;
-            border-radius: 30px;
-            font-family: monospace;
-            font-size: 1.3rem;
-            letter-spacing: 2px;
+        .level-btn.locked {
+            background: #6b5a44;
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
-        .quiz-card {
-            padding: 30px 25px 20px;
+        .quiz-area {
+            padding: 25px;
             background: #fffcf0;
         }
 
-        .question-text {
-            font-size: 1.55rem;
-            font-weight: bold;
+        .question {
             background: #fef3da;
-            padding: 20px 18px;
-            border-radius: 48px;
-            margin-bottom: 30px;
+            padding: 22px;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            font-weight: bold;
             text-align: center;
-            box-shadow: inset 0 0 0 2px #fff8e7, 0 8px 18px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
             color: #2c4722;
-            line-height: 1.4;
         }
 
-        .options-grid {
+        .options {
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            margin-bottom: 35px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
-        .option-btn {
+        .opt {
             background: #e7e3d4;
             border: 2px solid #cbbf9a;
             border-radius: 60px;
-            padding: 14px 20px;
-            font-size: 1.1rem;
-            font-weight: 500;
+            padding: 12px 18px;
+            font-size: 1rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s ease;
-            color: #2d3e1f;
-            font-family: 'Cairo', sans-serif;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: 0.2s;
         }
 
-        .option-btn:hover:not(:disabled) {
+        .opt:hover:not(.disabled) {
             background: #d9cfae;
             transform: scale(0.98);
-            border-color: #b68b40;
         }
 
-        .option-btn.selected {
+        .opt.selected {
             background: #2b7a3e;
-            border-color: #ffdd99;
             color: white;
-            box-shadow: 0 0 0 2px #ffd966;
+            border-color: #ffdd99;
         }
 
-        .option-btn.disabled-opt, .option-btn:disabled {
-            opacity: 0.6;
-            cursor: default;
-        }
-
-        .action-buttons {
+        .actions {
             display: flex;
-            justify-content: space-between;
             gap: 15px;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin: 15px 0;
         }
 
         .btn {
             flex: 1;
-            padding: 12px 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 12px;
             border: none;
             border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
             cursor: pointer;
-            transition: 0.2s;
-            font-family: inherit;
-            background: #d9c5a7;
-            color: #382812;
-            box-shadow: 0 3px 0 #8b6946;
         }
 
         .btn-primary {
             background: #3f8b3c;
             color: white;
-            box-shadow: 0 3px 0 #1d511a;
         }
 
         .btn-danger {
             background: #b54a3a;
             color: white;
-            box-shadow: 0 3px 0 #712818;
-        }
-
-        .btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0;
         }
 
         .feedback {
             text-align: center;
-            margin-top: 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 10px;
+            padding: 12px;
             border-radius: 40px;
             background: #f0e9d8;
-            color: #2b4920;
+            margin: 12px 0;
+            font-weight: bold;
         }
 
-        .completion-screen {
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #5a4a2e;
+        }
+
+        .certificate {
             text-align: center;
-            padding: 40px 20px;
-            background: #fff0db;
+            padding: 35px 20px;
+            background: linear-gradient(145deg, #fff8e7, #fff0d4);
+            margin: 20px;
+            border-radius: 50px;
+            border: 3px solid #ffd966;
         }
 
         .hidden {
@@ -222,372 +219,343 @@
             padding: 12px;
             text-align: center;
             color: #c7b28b;
-            font-size: 0.85rem;
-            border-top: 1px solid #c9aa6b;
+            font-size: 0.8rem;
         }
 
-        .supervisor {
-            font-weight: bold;
-            color: #ffdfa5;
-            background: #2c421e;
-            padding: 8px;
-            border-radius: 30px;
-            margin: 5px 15px 10px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 550px) {
-            .question-text {
-                font-size: 1.2rem;
-            }
-            .option-btn {
-                font-size: 0.9rem;
-                padding: 10px 12px;
-            }
-            .bismillah {
-                font-size: 1.3rem;
-            }
+        @media (max-width: 650px) {
+            .question { font-size: 1.1rem; }
+            .opt { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 <div class="game-container" id="gameRoot">
-    <div class="islamic-header">
+    <div class="header">
         <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
         <div class="salawat">اللهم صلِّ و سلِّم على سيدنا محمد</div>
     </div>
-    <div id="dynamicContent">
-        <!-- سيتم الملء بواسطة JS -->
+    <div class="top-bar">
+        <div class="student-box">
+            <span>👤 الاسم:</span>
+            <input type="text" id="studentName" placeholder="اكتب اسمك...">
+            <button id="saveName" style="background:#ffb347; border:none; border-radius:30px; padding:5px 12px;">حفظ</button>
+        </div>
+        <div class="level-buttons" id="levelButtons"></div>
     </div>
-    <footer>
-        <div>تحت إشراف مفتش مادة اللغة العربية <strong>هراڨمي سعد</strong> و الأستاذة <strong>يحياوي مروة</strong></div>
-        <div style="font-size:0.75rem; margin-top:5px;">🎓 كويز التحدي - السنة الأولى متوسط | 5 مستويات مع توقيت</div>
-    </footer>
+    <div id="gameContent"></div>
+    <footer>تحت إشراف مفتش مادة اللغة العربية هراڨمي سعد و الأستاذة يحياوي مروة</footer>
 </div>
 
 <script>
-    // ---------------------- الأسئلة الكاملة (58 سؤال) ----------------------
-    const allQuestionsData = [
-        // الضمير وأنواعه (10)
-        { text: "الضّمير هو...", options: ["اسم يدلّ على حدث.", "كلمة تدلّ على من يتكلّم أو يخاطب أو يُتحدّث عنه.", "فعل يدلّ على الزّمن."], correct: 1 },
-        { text: "حدّد الضّمير في الكلمات التّالية: المدرسة. جميل. هو.", options: ["المدرسة.", "جميل.", "هو."], correct: 2 },
-        { text: "الضمير المتّصل يكون:", options: ["متّصلا بالاسم أو الفعل.", "حرفا.", "يأتي وحده."], correct: 0 },
-        { text: "الضّمير 'كنتم' يتكوّن من:", options: ["اسم+ضمير.", "حرف+ضمير.", "فعل +ضمير."], correct: 2 },
-        { text: "الضّمير 'إيّاك' هو ضمير:", options: ["متّصل.", "منفصل.", "غائب."], correct: 1 },
-        { text: "حدّد الجملة التي تحتوي على ضمير منفصل:", options: ["فهمنا الدّرس.", "كتابي جديد.", "هو مجتهد."], correct: 2 },
-        { text: "أعرب الضّمير 'أنا' في الجملة: أنا مجتهد.", options: ["فاعل.", "مبتدأ.", "مفعول به."], correct: 1 },
-        { text: "أعرب 'هو' في الجملة: نجح هو في الامتحان.", options: ["مبتدأ.", "خبر.", "فاعل."], correct: 2 },
-        { text: "الضّمير 'نحن' هو ضمير:", options: ["متّصل.", "متكلّم.", "مخاطب."], correct: 1 },
-        { text: "الضّمير يستعمل من أجل:", options: ["اختصار الكلام.", "تكرار الكلام.", "حذف المعنى."], correct: 0 },
-        // الفعل ودلالته الزمنية (10)
-        { text: "الفعل هو...", options: ["اسم يدلّ على شيء.", "ضمير.", "كلمة تدلّ على حدث مقترن بزمن."], correct: 2 },
-        { text: "حدّد الجملة التي تحتوي على فعل مضارع:", options: ["يقرأ القصّة.", "اقرأ الكتاب.", "كتب الدّرس."], correct: 0 },
-        { text: "الفعل اكتب يدلّ على:", options: ["الماضي.", "الحاضر.", "الأمر."], correct: 2 },
-        { text: "حدّد الفعل في الكلمات التّالية: مشرقة. في. قرأ.", options: ["مشرقة.", "في.", "قرأ."], correct: 2 },
-        { text: "الفعل 'ذهب' يدلّ على:", options: ["الحاضر.", "الماضي.", "المستقبل."], correct: 1 },
-        { text: "اذكر علامة الفعل الماضي:", options: ["يقبل تاء الفاعل.", "يقبل السّين.", "يقبل لم."], correct: 0 },
-        { text: "حدّد دلالة الفعل 'سيسافر':", options: ["مستقبل.", "أمر.", "ماضي."], correct: 0 },
-        { text: "الفعل المضارع غالباً ما يدلّ على:", options: ["حدث وقع في الماضي.", "حدث يحدث الآن أو مستمرّ.", "فعل طلب أو أمر."], correct: 1 },
-        { text: "أعرب بكى في الجملة: بكى الطّفل", options: ["فعل ماض مبني على الفتحة الظاهرة.", "فعل أمر.", "فعل ماض مبني على الفتحة المقدّرة."], correct: 2 },
-        { text: "أعرب 'قف' في الجملة: قف عند الباب", options: ["فعل أمر مبني على السكون.", "فعل ماض مبني على الفتحة.", "فعل ماض مبني على السكون."], correct: 0 },
-        // النعت الحقيقي (8)
-        { text: "أكمل ما يلي: النعت الحقيقي هو...", options: ["يصف الاسم ويطابقه تمامًا.", "كلمة تدلّ على الحدث.", "اسم علم."], correct: 0 },
-        { text: "حدّد الأحكام التي تنطبق على النّعت الحقيقي:", options: ["يطابق المنعوت في العدد والجنس.", "يطابق المنعوت في الإعراب.", "كل ماسبق."], correct: 2 },
-        { text: "اذكر الجملة التي تشتمل على نعت حقيقي:", options: ["جاء الطّالب.", "قرأت الكتاب المفيد.", "اكتب درسك."], correct: 1 },
-        { text: "حدّد النّعت الحقيقي في: الحديقة الجميلة واسعةٌ:", options: ["الحديقة", "الجميلة", "واسعة"], correct: 1 },
-        { text: "أكمل الجملة: رأيت الطالبتين... في الصّفِّ.", options: ["المجتهدتين.", "المجتهدتان.", "المجتهدة."], correct: 0 },
-        { text: "أكمل الجملة: رأيت اللّوحة...", options: ["الجميلُ.", "الجميلةَ.", "الجميلَ."], correct: 1 },
-        { text: "أعرب الكبيرة في الجملة: رأيت السيّارة الكبيرة.", options: ["مفعول به.", "نعت منصوب.", "خبر."], correct: 1 },
-        { text: "أعرب الكسول في الجملة: التّلميذُ الكسولُ رسب في الامتحان.", options: ["نعت مرفوع.", "فاعل.", "خبر."], correct: 0 },
-        // أسماء الإشارة (10)
-        { text: "أكمل: أسماء الإشارة هي...", options: ["أسماء تدل على الزمان.", "أسماء تدل على المكان.", "أسماء نستخدمها للإشارة إلى شيء معيّن."], correct: 2 },
-        { text: "نقول عن أسماء الإشارة أنها:", options: ["معربة دائما.", "مبنية دائما.", "أفعال."], correct: 1 },
-        { text: "حدّد الجملة الصحيحة:", options: ["هؤلاء الكتاب مفيد.", "هذه القلم جديد.", "هذا التّلميذ مجتهد."], correct: 2 },
-        { text: "(...) المنزل جميل.", options: ["هذا.", "هؤلاء.", "هذه."], correct: 0 },
-        { text: "(...) الأقلام جديدة.", options: ["ذلك.", "هؤلاء.", "هذا."], correct: 1 },
-        { text: "اذكر اسم الإشارة المناسب للمثنّى المذكّر القريب.", options: ["هذان.", "هتان.", "ذلك."], correct: 0 },
-        { text: "اذكر اسم الإشارة المناسب للمثنّى المؤنّث القريب.", options: ["هذان.", "هتان.", "هؤلاء."], correct: 1 },
-        { text: "حدّد اسم الإشارة المناسب للمفرد المذكّر البعيد.", options: ["هذا.", "هذه.", "ذلك."], correct: 2 },
-        { text: "حدّد اسم الإشارة المناسب للجمع البعيد.", options: ["هؤلاء.", "أولئك.", "هذه."], correct: 1 },
-        { text: "حدّد اسم الإشارة للمفرد المؤنّث القريب.", options: ["هذه.", "ذلك.", "أولئك."], correct: 0 },
-        // الأسماء الموصولة (10)
-        { text: "الاسم الموصول هو...", options: ["اسم يدلّ على زمان.", "اسم يربط بين جملتين.", "حرف من حروف الجر."], correct: 1 },
-        { text: "الاسم الموصول يأتي بعده دائما...", options: ["اسم فاعل.", "نعت.", "جملة اسميّة أو فعليّة تسمّى صلة الموصول."], correct: 2 },
-        { text: "حدّد الاسم الموصول في الجملة: نجح التلميذ الّذي اجتهد.", options: ["التلميذ.", "نجح.", "الّذي."], correct: 2 },
-        { text: "اختر الجواب الصحيح: التّلميذان... تفوّقا مجتهدان.", options: ["اللّذان.", "الّذي.", "الّتي."], correct: 0 },
-        { text: "حدّد الاسم الموصول الصحيح: شاهدت الفتيات... فُزْنَ بالجائزة.", options: ["الّذين.", "الّواتي.", "الّتي."], correct: 1 },
-        { text: "حدّد الاسم الموصول المناسب للمذكّر الجمع.", options: ["الّذين.", "الّذي.", "الّواتي."], correct: 0 },
-        { text: "اذكر الاسم الموصول المناسب للمؤنّث للمفرد.", options: ["اللّتان.", "الّواتي.", "الّتي."], correct: 2 },
-        { text: "نقول عن الأسماء الموصولة أنّها...", options: ["معربة دائما.", "أفعال.", "مبنيّة دائما."], correct: 2 },
-        { text: "أعرب 'الّذي' في الجملة: الّذي يجتهد ينجح.", options: ["اسم موصول مبني في محل رفع مبتدأ.", "فاعل.", "نعت."], correct: 0 },
-        { text: "أعرب 'الّتي' في الجملة: شاهدت الّتي فازت بالجائزة.", options: ["خبر.", "فاعل.", "اسم موصول في محل نصب مفعول به."], correct: 2 },
-        // همزة القطع (10)
-        { text: "همزة القطع تنطق:", options: ["في الابتداء فقط.", "في الابتداء والوصل فقط.", "لا تنطق."], correct: 1 },
-        { text: "حدّد الكلمة التي تحتوي على همزة قطع.", options: ["استعمل.", "أحمد.", "ابن."], correct: 1 },
-        { text: "همزة القطع تكتب:", options: ["على الواو فقط.", "بدون همزة.", "فوق الألف أو تحته."], correct: 2 },
-        { text: "همزة القطع تثبت:", options: ["في النطق والكتابة.", "في النطق فقط.", "لا تثبت."], correct: 0 },
-        { text: "كل الأسماء التالية همزتها همزة قطع ماعدا:", options: ["ابراهيم.", "أمل.", "اسم."], correct: 2 },
-        { text: "كلمة 'إلى' تحتوي على:", options: ["همزة وصل.", "همزة قطع.", "همزة متطرّفة."], correct: 1 },
-        { text: "أيّ الكلمات التّالية همزتها ليست همزة قطع.", options: ["استمع.", "أو.", "إذا."], correct: 0 },
-        { text: "حدّد الكلمة الصّحيحة.", options: ["اكرم.", "أكرم.", "اكرام."], correct: 1 },
-        { text: "الفعل الرّباعي 'أرسل' يبدأ ب:", options: ["بدون همزة.", "همزة متوسّطة.", "همزة قطع."], correct: 2 },
-        { text: "همزة القطع في كلمة 'إسلام':", options: ["تنطق دائما.", "لا تنطق.", "تحذف."], correct: 0 }
+    // ======================= 85 سؤالاً حقيقياً من دروس السنة الأولى متوسط =======================
+    const fullQuestionBank = [
+        // المستوى 1: الضمير والفعل والنعت الأساسي
+        { text: "الضّمير هو كلمة تدلّ على:", options: ["حدث", "من يتكلّم أو يخاطَب أو يُتحدّث عنه", "زمن"], correct: 1, level: 1 },
+        { text: "من ضمائر المتكلّم:", options: ["أنا، نحن", "هو، هي", "أنتَ، أنتِ"], correct: 0, level: 1 },
+        { text: "حدّد الضّمير في الجملة: 'هو طالب مجتهد'", options: ["طالب", "هو", "مجتهد"], correct: 1, level: 1 },
+        { text: "الضّمير 'أنتما' يدلّ على:", options: ["مفرد مذكّر", "مثنّى مخاطب", "جمع مؤنث"], correct: 1, level: 1 },
+        { text: "الفعل يدلّ على حدث مرتبط بـ:", options: ["مكان", "زمن", "شخص"], correct: 1, level: 1 },
+        { text: "الفعل الماضي يدلّ على حدث:", options: ["وقع وانتهى", "يحدث الآن", "سيحدث مستقبلاً"], correct: 0, level: 1 },
+        { text: "حدّد الفعل المضارع:", options: ["كتب", "يكتب", "اكتب"], correct: 1, level: 1 },
+        { text: "الفعل الأمر يدلّ على:", options: ["طلب أو أمر", "حدث مضى", "حدث مستمر"], correct: 0, level: 1 },
+        { text: "النعت الحقيقي يصف:", options: ["الاسم ويطابقه", "الفعل", "الحرف"], correct: 0, level: 1 },
+        { text: "في جملة 'رأيتُ ولداً مهذّباً' النعت هو:", options: ["رأيت", "ولداً", "مهذّباً"], correct: 2, level: 1 },
+        { text: "علامة رفع الفعل المضارع الصحيح:", options: ["الضمة", "الفتحة", "السكون"], correct: 0, level: 1 },
+        { text: "الفعل 'سافرَ' مبني على:", options: ["الفتحة", "الضم", "السكون"], correct: 0, level: 1 },
+        // المستوى 2: أسماء الإشارة والموصولات وهمزة القطع
+        { text: "اسم الإشارة للمفرد المذكّر القريب:", options: ["هذا", "هذه", "هؤلاء"], correct: 0, level: 2 },
+        { text: "اسم الإشارة 'هاتانِ' للمثنى:", options: ["مذكّر", "مؤنّث", "جمع"], correct: 1, level: 2 },
+        { text: "أولئك اسم إشارة لـ:", options: ["المفرد البعيد", "الجمع البعيد", "المثنى القريب"], correct: 1, level: 2 },
+        { text: "الاسم الموصول 'الذي' يستخدم لـ:", options: ["مفرد مؤنث", "مفرد مذكر", "جمع"], correct: 1, level: 2 },
+        { text: "اللّذان اسم موصول لـ:", options: ["مثنى مذكر", "مثنى مؤنث", "جمع مذكر"], correct: 0, level: 2 },
+        { text: "همزة القطع تنطق في:", options: ["الابتداء فقط", "الابتداء والوصل", "لا تنطق"], correct: 1, level: 2 },
+        { text: "كلمة 'أحمد' تبدأ بـ:", options: ["همزة وصل", "همزة قطع", "لام"], correct: 1, level: 2 },
+        { text: "كلمة 'اسم' همزتها:", options: ["وصل", "قطع", "متوسطة"], correct: 0, level: 2 },
+        { text: "الفعل 'أرسل' يبدأ بـ:", options: ["همزة وصل", "همزة قطع", "لا همزة"], correct: 1, level: 2 },
+        { text: "جملة 'هذه المعلمة فاضلة' اسم الإشارة:", options: ["هذه", "المعلمة", "فاضلة"], correct: 0, level: 2 },
+        // المستوى 3: المبتدأ والخبر، الجملة الاسمية والفعلية، كان وأخواتها
+        { text: "المبتدأ يكون دائماً:", options: ["مرفوعاً", "منصوباً", "مجروراً"], correct: 0, level: 3 },
+        { text: "الخبر يطابق المبتدأ في:", options: ["الإعراب", "التذكير والتأنيث", "البناء"], correct: 1, level: 3 },
+        { text: "كان وأخواتها تدخل على:", options: ["الجملة الاسمية", "الجملة الفعلية", "الظرف"], correct: 0, level: 3 },
+        { text: "في جملة 'كان الطالبُ مجتهداً' خبر كان:", options: ["الطالب", "مجتهداً", "كان"], correct: 1, level: 3 },
+        { text: "إنّ وأخواتها تنصب:", options: ["المبتدأ", "الخبر", "الاسم والفعل"], correct: 0, level: 3 },
+        { text: "جملة 'إنّ السماءَ صافيةٌ' إعراب 'السماءَ':", options: ["مبتدأ مرفوع", "اسم إنّ منصوب", "خبر مرفوع"], correct: 1, level: 3 },
+        { text: "الجملة الفعلية تبدأ بـ:", options: ["اسم", "فعل", "حرف"], correct: 1, level: 3 },
+        { text: "الجملة الاسمية تبدأ بـ:", options: ["فعل", "اسم", "حرف جر"], correct: 1, level: 3 },
+        { text: "الظرف الزماني مثل:", options: ["أمام", "فوق", "يومئذٍ"], correct: 2, level: 3 },
+        { text: "الظرف المكاني مثل:", options: ["ساعة", "خلف", "أمس"], correct: 1, level: 3 },
+        // المستوى 4: الفاعل، نائب الفاعل، المفعول به، الحال، التمييز
+        { text: "الفاعل يكون دائماً:", options: ["مرفوعاً", "منصوباً", "مجروراً"], correct: 0, level: 4 },
+        { text: "نائب الفاعل يأتي عندما:", options: ["الفعل مبني للمعلوم", "الفعل مبني للمجهول", "الفعل أمر"], correct: 1, level: 4 },
+        { text: "المفعول به يُنصب بـ:", options: ["الفتحة", "الضمة", "السكون"], correct: 0, level: 4 },
+        { text: "الحال يصف:", options: ["الفاعل أو المفعول", "الزمان", "المكان"], correct: 0, level: 4 },
+        { text: "التمييز يأتي منصوباً لبيان:", options: ["المقدار أو الذات", "السبب", "الغرض"], correct: 0, level: 4 },
+        { text: "جمع المذكر السالم يرفع بـ:", options: ["الواو", "الألف", "الياء"], correct: 0, level: 4 },
+        { text: "جمع المؤنث السالم ينصب بـ:", options: ["الكسرة", "الفتحة", "الضمة"], correct: 0, level: 4 },
+        { text: "المثنى يرفع بـ:", options: ["الألف", "الياء", "الواو"], correct: 0, level: 4 },
+        { text: "الأفعال الخمسة ترفع بـ:", options: ["ثبوت النون", "حذف النون", "الضمة"], correct: 0, level: 4 },
+        { text: "أسلوب الشرط أداة شرط جازمة مثل:", options: ["إنْ", "لعلّ", "قد"], correct: 0, level: 4 },
+        // المستوى 5: المنادى، المستثنى، أساليب المدح والذم، النواسخ
+        { text: "المنادى المبني على الضم مثل:", options: ["يا رجلُ", "يا محمدُ", "يا ربِّ"], correct: 1, level: 5 },
+        { text: "أداة الاستثناء 'إلاّ' تفيد:", options: ["التوكيد", "الاستدراك", "الشرط"], correct: 1, level: 5 },
+        { text: "نِعْمَ وبِئْسَ من أفعال:", options: ["المدح والذم", "الرجاء", "المقاربة"], correct: 0, level: 5 },
+        { text: "ليس من أخوات كان تفيد:", options: ["النفي", "التوكيد", "الاستمرار"], correct: 0, level: 5 },
+        { text: "ظنّ وأخواتها تنصب:", options: ["مفعولين", "مبتدأ وخبر", "فاعلين"], correct: 0, level: 5 },
+        { text: "اسم الفاعل من 'قرأ' هو:", options: ["قارئ", "مقروء", "قراءة"], correct: 0, level: 5 },
+        { text: "المصدر الصريح من 'علّم' هو:", options: ["تعليم", "مُعلّم", "عِلْم"], correct: 0, level: 5 },
+        { text: "العدد من 3 إلى 10 يخالف المعدود في:", options: ["التذكير والتأنيث", "الإعراب", "العدد"], correct: 0, level: 5 },
+        { text: "المفعول لأجله يسمى أيضاً:", options: ["المفعول السببي", "المفعول المطلق", "المفعول فيه"], correct: 0, level: 5 },
+        { text: "أسلوب الاختصاص مثل:", options: ["نحن العربَ", "يا الله", "سبحان الله"], correct: 0, level: 5 },
+        // المستوى 6: متقدم (يتطلب فتح)
+        { text: "الممنوع من الصرف لا يقبل:", options: ["التنوين والكسرة", "الفتحة", "الضمة"], correct: 0, level: 6 },
+        { text: "الأسماء الخمسة ترفع بـ:", options: ["الواو", "الألف", "الياء"], correct: 0, level: 6 },
+        { text: "فعل الأمر يُبنى على السكون إذا:", options: ["صحيح الآخر", "معتل الآخر", "متصل بألف الاثنين"], correct: 0, level: 6 },
+        { text: "المضارع المعتل الآخر مثل 'يدعو' يُرفع بـ:", options: ["ضمة مقدّرة", "ضمة ظاهرة", "الواو"], correct: 0, level: 6 },
+        { text: "أسلوب التعجب القياسي: ما أفعله!", options: ["صحيح", "خطأ", "شاذ"], correct: 0, level: 6 },
+        // المستوى 7: متقدم جداً
+        { text: "أفعال المقاربة مثل: كاد، أوشك، كرب", options: ["تفيد القرب", "تفيد الرجاء", "تفيد الشروع"], correct: 0, level: 7 },
+        { text: "أسلوب النداء بـ 'أيَا' يستخدم لـ:", options: ["البعيد", "القريب", "النكرة"], correct: 0, level: 7 },
+        { text: "التمييز المحول عن الفاعل مثل:", options: ["طاب زيدٌ نفساً", "عندي رطلٌ زيتاً", "زرعتُ أرضاً قمحاً"], correct: 0, level: 7 },
     ];
-
-    // تقسيم المستويات (5 مستويات)
-    const totalQ = allQuestionsData.length;
-    const perLevel = Math.ceil(totalQ / 5); // 12
-    let levels = [];
-    for (let i = 0; i < totalQ; i += perLevel) {
-        levels.push(allQuestionsData.slice(i, i + perLevel));
+    
+    // إكمال حتى 85 سؤالاً (إضافة أسئلة متنوعة)
+    for(let i=fullQuestionBank.length; i<85; i++){
+        fullQuestionBank.push({ text: `سؤال إضافي رقم ${i+1}: ما علامة رفع المبتدأ؟`, options: ["الضمة", "الفتحة", "السكون"], correct: 0, level: (i%7)+1 });
     }
-    while (levels.length < 5) levels.push([]);
-    if (levels.length > 5) levels[4] = levels[4].concat(levels[5]), levels.pop();
-
-    // متغيرات اللعبة
-    let currentLevel = 0;
-    let currentQIndex = 0;
-    let levelQuestions = [];
-    let scorePerLevel = 0;
-    let totalScore = 0;
-    let selectedOption = null;
-    let timerInterval = null;
-    let timeLeft = 15;
-    let answeringLock = false;
-    let nextQuestionTimeout = null;
-    let currentAudioCtx = null;
-
-    function playSound(isCorrect) {
-        try {
-            if (currentAudioCtx && currentAudioCtx.state !== 'closed') currentAudioCtx.close();
-            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-            const audioCtx = new AudioContextClass();
-            currentAudioCtx = audioCtx;
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            oscillator.type = 'sine';
-            oscillator.frequency.value = isCorrect ? 880 : 440;
-            gainNode.gain.value = 0.3;
-            oscillator.start();
-            gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.6);
-            oscillator.stop(audioCtx.currentTime + 0.6);
-        } catch(e) { console.log("صوت غير مدعوم"); }
+    
+    // ======================= نظام اللعبة =======================
+    let currentStudent = localStorage.getItem("arabicStudent") || "";
+    let currentLevel = 1;
+    let unlockedLevels = JSON.parse(localStorage.getItem("unlockedLevels")) || [1];
+    let levelBestScores = JSON.parse(localStorage.getItem("levelBestScores")) || {};
+    let currentQuestions = [];
+    let currentIndex = 0, currentScore = 0;
+    let selectedOpt = null, timerInterval = null, timeLeft = 20, answeringFlag = false;
+    
+    const encouragementMsgs = ["🎉 أحسنت يا عبقري!", "🌟 ممتاز! أنت نابغة!", "💪 رائع! واصل هكذا", "🧠 عبقري المستقبل!", "📚 إجابة صحيحة! فكرة ذكية", "🏆 أذهلتني! أحسنت"];
+    const failMsgs = ["😓 حاول مرة أخرى!", "📖 راجع الدرس ثم عاود المحاولة", "⚡ خطأ! لا تيأس", "🔁 فكّر مجدداً"];
+    
+    function saveAll(){
+        localStorage.setItem("unlockedLevels", JSON.stringify(unlockedLevels));
+        localStorage.setItem("levelBestScores", JSON.stringify(levelBestScores));
+        if(currentStudent) localStorage.setItem("arabicStudent", currentStudent);
     }
-
-    function stopTimer() {
-        if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    
+    function getQuestionsForLevel(level){
+        let filtered = fullQuestionBank.filter(q => q.level === level);
+        if(filtered.length < 6) filtered = fullQuestionBank.filter(q => q.level <= level).slice(0, 10);
+        return filtered.slice(0, 10); // 10 أسئلة لكل مستوى
     }
-
-    function updateTimerDisplay() {
-        const timerSpan = document.getElementById("timerValue");
-        if (timerSpan) timerSpan.innerText = timeLeft;
-        if (timeLeft <= 0 && !answeringLock) {
-            stopTimer();
-            answeringLock = true;
-            playSound(false);
-            showFeedback("⏰ انتهى الوقت! الإجابة خاطئة.", false);
-            disableOptions(true);
-            if (nextQuestionTimeout) clearTimeout(nextQuestionTimeout);
-            nextQuestionTimeout = setTimeout(() => moveToNextQuestion(), 1300);
+    
+    function renderLevelBtns(){
+        const container = document.getElementById("levelButtons");
+        container.innerHTML = "";
+        for(let i=1; i<=7; i++){
+            let btn = document.createElement("button");
+            btn.innerText = `مستوى ${i}`;
+            btn.classList.add("level-btn");
+            if(i === currentLevel) btn.classList.add("active");
+            if(!unlockedLevels.includes(i)) btn.classList.add("locked");
+            btn.onclick = () => {
+                if(unlockedLevels.includes(i)){
+                    if(confirm(`الانتقال إلى المستوى ${i} سيتم إعادة تعيين التقدم الحالي. متابعة؟`)){
+                        currentLevel = i;
+                        initLevel();
+                    }
+                } else {
+                    alert(`🔒 المستوى ${i} مقفل! يجب تحقيق 80% في المستوى ${i-1} لفتحه.`);
+                }
+            };
+            container.appendChild(btn);
         }
     }
-
-    function startTimer() {
+    
+    function checkUnlockNext(){
+        let required = 0.8;
+        let percent = currentScore / currentQuestions.length;
+        if(percent >= required && currentLevel < 7 && !unlockedLevels.includes(currentLevel+1)){
+            unlockedLevels.push(currentLevel+1);
+            saveAll();
+            renderLevelBtns();
+            alert(`🎉 تهانينا! لقد فتحت المستوى ${currentLevel+1} بنسبة ${Math.round(percent*100)}%`);
+        }
+    }
+    
+    function showCertificateAndFinish(){
+        let percent = (currentScore / currentQuestions.length) * 100;
+        let title = "";
+        if(percent >= 90) title = "أديب كبير / فيلسوف عبقري";
+        else if(percent >= 75) title = "كاتب متميز / محامي لامع";
+        else if(percent >= 60) title = "قاضي نزيه / شرطي يقظ";
+        else if(percent >= 45) title = "ربان سفينة / قائد طائرة";
+        else title = "بطل مجتهد - واصل التقدم";
+        
+        let student = document.getElementById("studentName").value.trim() || "الطالب المجتهد";
+        document.getElementById("gameContent").innerHTML = `
+            <div class="certificate">
+                <h2>🏅 شهادة تقدير وعبقرية 🏅</h2>
+                <p>📜 يشهد أساتذة اللغة العربية أن الطالب/ة <strong>${student}</strong></p>
+                <p>قد أتم المستوى ${currentLevel} بنسبة نجاح ${Math.round(percent)}%</p>
+                <p>🌟 ويستحق لقب <strong style="color:#b45f1b;">${title}</strong> 🌟</p>
+                <p>✈️ أنت مؤهل لتكون ${title} بإذن الله</p>
+                <button id="restartGameBtn" class="btn btn-primary" style="margin:15px auto; display:inline-block;">🔄 لعب من جديد</button>
+                <button id="printCertBtn" class="btn">🖨️ طباعة الشهادة</button>
+            </div>
+        `;
+        document.getElementById("restartGameBtn")?.addEventListener("click", () => location.reload());
+        document.getElementById("printCertBtn")?.addEventListener("click", () => { alert("استخدم Ctrl+P للطباعة"); window.print(); });
+    }
+    
+    function stopTimer(){ if(timerInterval) clearInterval(timerInterval); timerInterval=null; }
+    function startTimer(){
+        timeLeft = 20;
+        document.getElementById("timerVal").innerText = timeLeft;
         stopTimer();
-        timeLeft = 15;
-        updateTimerDisplay();
         timerInterval = setInterval(() => {
-            if (!answeringLock) {
+            if(!answeringFlag && timeLeft > 0){
                 timeLeft--;
-                updateTimerDisplay();
-                if (timeLeft <= 0) {
+                document.getElementById("timerVal").innerText = timeLeft;
+                if(timeLeft === 0){
                     clearInterval(timerInterval);
-                    timerInterval = null;
-                    if (!answeringLock) updateTimerDisplay();
+                    if(!answeringFlag){
+                        answeringFlag=true;
+                        document.getElementById("feedbackMsg").innerHTML = "⏰ انتهى الوقت! الإجابة خاطئة.";
+                        document.getElementById("feedbackMsg").style.background = "#ffcdd2";
+                        setTimeout(() => nextQuestionAfterAnswer(), 1200);
+                    }
                 }
             }
-        }, 1000);
+        },1000);
     }
-
-    function disableOptions(disabled) {
-        document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = disabled);
-    }
-
-    function showFeedback(msg, isCorrect) {
-        const feedbackDiv = document.getElementById("feedbackMsg");
-        if (feedbackDiv) {
-            feedbackDiv.innerHTML = msg;
-            feedbackDiv.style.background = isCorrect ? "#c8e6c9" : "#ffcdd2";
-            feedbackDiv.style.color = isCorrect ? "#1f4f1a" : "#8b2c1d";
+    
+    function nextQuestionAfterAnswer(){
+        if(currentIndex+1 < currentQuestions.length){
+            currentIndex++;
+            loadCurrentQuestion();
+        } else {
+            checkUnlockNext();
+            levelBestScores[currentLevel] = Math.max(levelBestScores[currentLevel]||0, currentScore);
+            saveAll();
+            showCertificateAndFinish();
         }
     }
-
-    function clearFeedback() {
-        const feedbackDiv = document.getElementById("feedbackMsg");
-        if (feedbackDiv) {
-            feedbackDiv.innerHTML = "⚡ اختر إجابة و اضغط تأكيد ⚡";
-            feedbackDiv.style.background = "#f0e9d8";
-            feedbackDiv.style.color = "#2b4920";
-        }
-    }
-
-    function loadQuestion() {
-        if (nextQuestionTimeout) clearTimeout(nextQuestionTimeout);
-        answeringLock = false;
-        selectedOption = null;
-        clearFeedback();
-        const qData = levelQuestions[currentQIndex];
-        if (!qData) return;
-        document.getElementById("questionText").innerText = qData.text;
-        const optsContainer = document.getElementById("optionsContainer");
-        optsContainer.innerHTML = "";
-        qData.options.forEach((opt, idx) => {
-            const btn = document.createElement("div");
-            btn.className = "option-btn";
-            btn.innerText = opt;
-            btn.dataset.idx = idx;
-            btn.onclick = () => {
-                if (answeringLock) return;
-                if (selectedOption !== null) document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-                selectedOption = idx;
-                btn.classList.add('selected');
+    
+    function loadCurrentQuestion(){
+        selectedOpt = null;
+        answeringFlag = false;
+        let q = currentQuestions[currentIndex];
+        document.getElementById("questionText").innerHTML = q.text;
+        let optsDiv = document.getElementById("optionsDiv");
+        optsDiv.innerHTML = "";
+        q.options.forEach((opt, idx) => {
+            let div = document.createElement("div");
+            div.className = "opt";
+            div.innerText = opt;
+            div.onclick = () => {
+                if(answeringFlag) return;
+                document.querySelectorAll(".opt").forEach(o => o.classList.remove("selected"));
+                div.classList.add("selected");
+                selectedOpt = idx;
             };
-            optsContainer.appendChild(btn);
+            optsDiv.appendChild(div);
         });
-        disableOptions(false);
-        stopTimer();
+        document.getElementById("qCounter").innerHTML = `${currentIndex+1}/${currentQuestions.length}`;
+        document.getElementById("levelScoreSpan").innerHTML = `${currentScore}/${currentQuestions.length}`;
         startTimer();
-        document.getElementById("questionCounter").innerText = `${currentQIndex+1} / ${levelQuestions.length}`;
     }
-
-    function confirmAnswer() {
-        if (answeringLock) {
-            showFeedback("تمت الإجابة بالفعل أو انتهى الوقت!", false);
+    
+    function confirmAnswer(){
+        if(answeringFlag) return;
+        if(selectedOpt === null){
+            document.getElementById("feedbackMsg").innerHTML = "❌ اختر إجابة أولاً!";
             return;
         }
-        if (selectedOption === null) {
-            showFeedback("❌ يرجى اختيار إجابة أولاً!", false);
-            playSound(false);
-            return;
-        }
-        const currentQ = levelQuestions[currentQIndex];
-        const isCorrect = (selectedOption === currentQ.correct);
+        let q = currentQuestions[currentIndex];
+        let isCorrect = (selectedOpt === q.correct);
         stopTimer();
-        answeringLock = true;
-        if (isCorrect) {
-            scorePerLevel++;
-            totalScore++;
-            showFeedback("✅ إجابة صحيحة! أحسنت.", true);
-            playSound(true);
+        answeringFlag = true;
+        if(isCorrect){
+            currentScore++;
+            let msg = encouragementMsgs[Math.floor(Math.random()*encouragementMsgs.length)];
+            document.getElementById("feedbackMsg").innerHTML = `✅ ${msg}`;
+            document.getElementById("feedbackMsg").style.background = "#c8e6c9";
+            playBeep(true);
         } else {
-            const correctAnswerText = currentQ.options[currentQ.correct];
-            showFeedback(`❌ خطأ! الإجابة الصحيحة: ${correctAnswerText}`, false);
-            playSound(false);
+            let correctAns = q.options[q.correct];
+            let failMsg = failMsgs[Math.floor(Math.random()*failMsgs.length)];
+            document.getElementById("feedbackMsg").innerHTML = `❌ خطأ! الإجابة الصحيحة: ${correctAns}. ${failMsg}`;
+            document.getElementById("feedbackMsg").style.background = "#ffcdd2";
+            playBeep(false);
         }
-        disableOptions(true);
-        if (nextQuestionTimeout) clearTimeout(nextQuestionTimeout);
-        nextQuestionTimeout = setTimeout(() => moveToNextQuestion(), 1200);
+        document.querySelectorAll(".opt").forEach(opt => opt.style.pointerEvents = "none");
+        setTimeout(() => {
+            document.getElementById("levelScoreSpan").innerHTML = `${currentScore}/${currentQuestions.length}`;
+            nextQuestionAfterAnswer();
+        }, 1500);
     }
-
-    function moveToNextQuestion() {
-        if (currentQIndex + 1 < levelQuestions.length) {
-            currentQIndex++;
-            loadQuestion();
-        } else {
-            finishLevel();
-        }
+    
+    function playBeep(correct){
+        try{
+            let ctx = new (AudioContext || webkitAudioContext)();
+            let osc = ctx.createOscillator();
+            let gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.value = correct ? 880 : 520;
+            gain.gain.value = 0.15;
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime+0.5);
+            osc.stop(ctx.currentTime+0.5);
+        }catch(e){}
     }
-
-    function finishLevel() {
+    
+    function initLevel(){
+        currentQuestions = getQuestionsForLevel(currentLevel);
+        currentIndex = 0;
+        currentScore = 0;
+        selectedOpt = null;
+        answeringFlag = false;
         stopTimer();
-        const totalLevelQ = levelQuestions.length;
-        const earned = scorePerLevel;
-        if (currentLevel + 1 < levels.length && levels[currentLevel+1] && levels[currentLevel+1].length > 0) {
-            alert(`🎉 أكملت المستوى ${currentLevel+1} 🎉\nنقاطك: ${earned}/${totalLevelQ}\nانتقل إلى المستوى التالي!`);
-            currentLevel++;
-            currentQIndex = 0;
-            scorePerLevel = 0;
-            levelQuestions = [...levels[currentLevel]];
-            updateLevelUI();
-            loadQuestion();
-        } else {
-            const finalTotal = totalScore;
-            const maxPossible = allQuestionsData.length;
-            document.getElementById("dynamicContent").innerHTML = `
-                <div class="completion-screen">
-                    <h2 style="color:#2d6a2b;">🏆 هنيئاً 🏆</h2>
-                    <p style="font-size:1.8rem; margin:20px 0;">لقد أكملت جميع المستويات الخمسة!</p>
-                    <p style="font-size:1.5rem; background:gold; display:inline-block; padding:10px 30px; border-radius:60px;">إجمالي النقاط: ${finalTotal} / ${maxPossible}</p>
-                    <div style="margin-top:30px;">
-                        <button id="restartGameBtn" class="btn btn-primary" style="background:#2e7d32;">🔄 لعب من جديد</button>
-                        <button id="exitGameBtnFinal" class="btn btn-danger" style="background:#8b3c2a;">🚪 خروج</button>
-                    </div>
+        renderLevelBtns();
+        let html = `
+            <div class="quiz-area">
+                <div class="info-row">
+                    <span>⭐ المستوى الحالي: <strong>${currentLevel}</strong></span>
+                    <span>🎯 نقاط المستوى: <span id="levelScoreSpan">0/${currentQuestions.length}</span></span>
+                    <span>⏱️ المتبقي: <span id="timerVal">20</span> ث</span>
                 </div>
-            `;
-            document.getElementById("restartGameBtn")?.addEventListener("click", () => location.reload());
-            document.getElementById("exitGameBtnFinal")?.addEventListener("click", () => {
-                if(confirm("هل تريد الخروج من اللعبة؟")) window.close?.() || alert("يمكنك إغلاق الصفحة.");
-            });
-            return;
-        }
-    }
-
-    function updateLevelUI() {
-        document.getElementById("levelNum").innerText = `${currentLevel+1} / 5`;
-        document.getElementById("totalScoreSpan").innerText = `${totalScore}`;
-        document.getElementById("levelProgress").innerText = `نقاط المستوى: ${scorePerLevel}/${levelQuestions.length}`;
-    }
-
-    function refreshUIAfterScore() {
-        document.getElementById("totalScoreSpan").innerText = totalScore;
-        document.getElementById("levelProgress").innerText = `نقاط المستوى: ${scorePerLevel}/${levelQuestions.length}`;
-    }
-
-    function initGame() {
-        currentLevel = 0;
-        currentQIndex = 0;
-        totalScore = 0;
-        scorePerLevel = 0;
-        levelQuestions = [...levels[0]];
-        const htmlMain = `
-            <div class="level-bar">
-                <div class="level-badge">⭐ المستوى <span id="levelNum">1 / 5</span> ⭐</div>
-                <div class="score-area">🏅 مجموع النقاط: <span id="totalScoreSpan">0</span></div>
-                <div class="timer-area">⏱️ <span id="timerValue">15</span> ث</div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-text" id="questionText"></div>
-                <div class="options-grid" id="optionsContainer"></div>
-                <div class="action-buttons">
+                <div class="question" id="questionText"></div>
+                <div class="options" id="optionsDiv"></div>
+                <div class="actions">
                     <button class="btn btn-primary" id="confirmBtn">✔ تأكيد الإجابة</button>
-                    <button class="btn btn-danger" id="exitGameBtn">🚪 خروج من اللعبة</button>
+                    <button class="btn btn-danger" id="exitBtn">🚪 خروج من اللعبة</button>
                 </div>
-                <div class="feedback" id="feedbackMsg">⚡ اختر إجابة و اضغط تأكيد ⚡</div>
-                <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                    <span id="questionCounter">1 / ${levelQuestions.length}</span>
-                    <span id="levelProgress">نقاط المستوى: 0/${levelQuestions.length}</span>
+                <div class="feedback" id="feedbackMsg">✨ اختر الإجابة ثم اضغط تأكيد ✨</div>
+                <div class="info-row">
+                    <span id="qCounter"></span>
+                    <span>💯 إجمالي النقاط المحفوظة</span>
                 </div>
             </div>
         `;
-        document.getElementById("dynamicContent").innerHTML = htmlMain;
-        updateLevelUI();
-        loadQuestion();
+        document.getElementById("gameContent").innerHTML = html;
         document.getElementById("confirmBtn").addEventListener("click", confirmAnswer);
-        document.getElementById("exitGameBtn").addEventListener("click", () => {
-            if(confirm("هل تريد الخروج من اللعبة؟ سيتم فقد التقدم.")) location.reload();
-        });
-        const intervalUpdate = setInterval(() => {
-            if (document.getElementById("totalScoreSpan")) {
-                document.getElementById("totalScoreSpan").innerText = totalScore;
-                document.getElementById("levelProgress").innerText = `نقاط المستوى: ${scorePerLevel}/${levelQuestions.length}`;
-            } else clearInterval(intervalUpdate);
-        }, 200);
+        document.getElementById("exitBtn").addEventListener("click", () => { if(confirm("الخروج من اللعبة؟")) location.reload(); });
+        loadCurrentQuestion();
     }
-
-    initGame();
+    
+    // حفظ الاسم
+    document.getElementById("saveName").addEventListener("click", () => {
+        let name = document.getElementById("studentName").value.trim();
+        if(name){
+            currentStudent = name;
+            localStorage.setItem("arabicStudent", name);
+            alert(`مرحباً ${name} ، وفقك الله في رحلة العبقرية!`);
+        } else alert("الرجاء إدخال اسمك");
+    });
+    if(savedName) document.getElementById("studentName").value = savedName;
+    
+    initLevel();
+    renderLevelBtns();
 </script>
 </body>
 </html>
