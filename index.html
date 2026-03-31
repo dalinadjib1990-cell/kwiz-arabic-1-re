@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>🎓 تحدي العربية - السنة الأولى متوسط | لعبة الأسئلة التعليمية</title>
+    <title>🎓 تحدي العربية - 100+ سؤال | السنة الأولى متوسط</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,7 @@
         }
 
         .game-container {
-            max-width: 950px;
+            max-width: 1100px;
             width: 100%;
             background: #fffef7;
             border-radius: 65px 50px 65px 50px;
@@ -55,7 +55,6 @@
             border-radius: 35px;
         }
 
-        /* شاشة البداية */
         .start-screen {
             padding: 40px 30px;
             text-align: center;
@@ -64,7 +63,7 @@
 
         .start-screen h2 {
             color: #2b6e2b;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-size: 1.8rem;
         }
 
@@ -116,27 +115,41 @@
             font-weight: bold;
         }
 
+        .progress-summary {
+            background: #1f2a0e;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+        }
+
         .level-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            justify-content: center;
         }
 
         .level-btn {
             background: #b8862c;
             border: none;
-            padding: 6px 14px;
+            padding: 8px 12px;
             border-radius: 30px;
             font-weight: bold;
             color: #2c1a0c;
             cursor: pointer;
             transition: 0.2s;
+            font-size: 0.85rem;
         }
 
         .level-btn.active {
             background: #ffae42;
             transform: scale(1.05);
             box-shadow: 0 0 0 2px gold;
+        }
+
+        .level-btn.completed {
+            background: #2b7a3e;
+            color: white;
         }
 
         .level-btn.locked {
@@ -148,6 +161,28 @@
         .quiz-area {
             padding: 25px;
             background: #fffcf0;
+        }
+
+        .lesson-title {
+            background: #ffd966;
+            padding: 12px;
+            border-radius: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2c241a;
+        }
+
+        .question-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .question-image img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .question {
@@ -233,6 +268,20 @@
             color: #5a4a2e;
         }
 
+        .level-complete-msg {
+            background: linear-gradient(145deg, #c8e6c9, #a5d6a7);
+            padding: 20px;
+            border-radius: 50px;
+            text-align: center;
+            margin: 20px;
+            animation: pulse 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
         .certificate {
             text-align: center;
             padding: 35px 20px;
@@ -240,10 +289,6 @@
             margin: 20px;
             border-radius: 50px;
             border: 3px solid #ffd966;
-        }
-
-        .hidden {
-            display: none;
         }
 
         footer {
@@ -257,7 +302,7 @@
         @media (max-width: 650px) {
             .question { font-size: 1.1rem; }
             .opt { font-size: 0.85rem; }
-            .start-screen h2 { font-size: 1.3rem; }
+            .level-btn { padding: 5px 8px; font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -272,132 +317,234 @@
 </div>
 
 <script>
-    // ======================= 85 سؤالاً حقيقياً من دروس السنة الأولى متوسط =======================
-    const fullQuestionBank = [
-        { text: "الضّمير هو كلمة تدلّ على:", options: ["حدث", "من يتكلّم أو يخاطَب أو يُتحدّث عنه", "زمن"], correct: 1, level: 1 },
-        { text: "من ضمائر المتكلّم:", options: ["أنا، نحن", "هو، هي", "أنتَ، أنتِ"], correct: 0, level: 1 },
-        { text: "حدّد الضّمير في الجملة: 'هو طالب مجتهد'", options: ["طالب", "هو", "مجتهد"], correct: 1, level: 1 },
-        { text: "الضّمير 'أنتما' يدلّ على:", options: ["مفرد مذكّر", "مثنّى مخاطب", "جمع مؤنث"], correct: 1, level: 1 },
-        { text: "الفعل يدلّ على حدث مرتبط بـ:", options: ["مكان", "زمن", "شخص"], correct: 1, level: 1 },
-        { text: "الفعل الماضي يدلّ على حدث:", options: ["وقع وانتهى", "يحدث الآن", "سيحدث مستقبلاً"], correct: 0, level: 1 },
-        { text: "حدّد الفعل المضارع:", options: ["كتب", "يكتب", "اكتب"], correct: 1, level: 1 },
-        { text: "الفعل الأمر يدلّ على:", options: ["طلب أو أمر", "حدث مضى", "حدث مستمر"], correct: 0, level: 1 },
-        { text: "النعت الحقيقي يصف:", options: ["الاسم ويطابقه", "الفعل", "الحرف"], correct: 0, level: 1 },
-        { text: "في جملة 'رأيتُ ولداً مهذّباً' النعت هو:", options: ["رأيت", "ولداً", "مهذّباً"], correct: 2, level: 1 },
-        { text: "علامة رفع الفعل المضارع الصحيح:", options: ["الضمة", "الفتحة", "السكون"], correct: 0, level: 1 },
-        { text: "الفعل 'سافرَ' مبني على:", options: ["الفتحة", "الضم", "السكون"], correct: 0, level: 1 },
-        { text: "اسم الإشارة للمفرد المذكّر القريب:", options: ["هذا", "هذه", "هؤلاء"], correct: 0, level: 2 },
-        { text: "اسم الإشارة 'هاتانِ' للمثنى:", options: ["مذكّر", "مؤنّث", "جمع"], correct: 1, level: 2 },
-        { text: "أولئك اسم إشارة لـ:", options: ["المفرد البعيد", "الجمع البعيد", "المثنى القريب"], correct: 1, level: 2 },
-        { text: "الاسم الموصول 'الذي' يستخدم لـ:", options: ["مفرد مؤنث", "مفرد مذكر", "جمع"], correct: 1, level: 2 },
-        { text: "اللّذان اسم موصول لـ:", options: ["مثنى مذكر", "مثنى مؤنث", "جمع مذكر"], correct: 0, level: 2 },
-        { text: "همزة القطع تنطق في:", options: ["الابتداء فقط", "الابتداء والوصل", "لا تنطق"], correct: 1, level: 2 },
-        { text: "كلمة 'أحمد' تبدأ بـ:", options: ["همزة وصل", "همزة قطع", "لام"], correct: 1, level: 2 },
-        { text: "كلمة 'اسم' همزتها:", options: ["وصل", "قطع", "متوسطة"], correct: 0, level: 2 },
-        { text: "المبتدأ يكون دائماً:", options: ["مرفوعاً", "منصوباً", "مجروراً"], correct: 0, level: 3 },
-        { text: "الخبر يطابق المبتدأ في:", options: ["الإعراب", "التذكير والتأنيث", "البناء"], correct: 1, level: 3 },
-        { text: "كان وأخواتها تدخل على:", options: ["الجملة الاسمية", "الجملة الفعلية", "الظرف"], correct: 0, level: 3 },
-        { text: "في جملة 'كان الطالبُ مجتهداً' خبر كان:", options: ["الطالب", "مجتهداً", "كان"], correct: 1, level: 3 },
-        { text: "إنّ وأخواتها تنصب:", options: ["المبتدأ", "الخبر", "الاسم والفعل"], correct: 0, level: 3 },
-        { text: "الفاعل يكون دائماً:", options: ["مرفوعاً", "منصوباً", "مجروراً"], correct: 0, level: 4 },
-        { text: "نائب الفاعل يأتي عندما:", options: ["الفعل مبني للمعلوم", "الفعل مبني للمجهول", "الفعل أمر"], correct: 1, level: 4 },
-        { text: "المفعول به يُنصب بـ:", options: ["الفتحة", "الضمة", "السكون"], correct: 0, level: 4 },
-        { text: "الحال يصف:", options: ["الفاعل أو المفعول", "الزمان", "المكان"], correct: 0, level: 4 },
-        { text: "التمييز يأتي منصوباً لبيان:", options: ["المقدار أو الذات", "السبب", "الغرض"], correct: 0, level: 4 },
-        { text: "المنادى المبني على الضم مثل:", options: ["يا رجلُ", "يا محمدُ", "يا ربِّ"], correct: 1, level: 5 },
-        { text: "أداة الاستثناء 'إلاّ' تفيد:", options: ["التوكيد", "الاستدراك", "الشرط"], correct: 1, level: 5 },
-        { text: "نِعْمَ وبِئْسَ من أفعال:", options: ["المدح والذم", "الرجاء", "المقاربة"], correct: 0, level: 5 },
-        { text: "ليس من أخوات كان تفيد:", options: ["النفي", "التوكيد", "الاستمرار"], correct: 0, level: 5 },
-        { text: "ظنّ وأخواتها تنصب:", options: ["مفعولين", "مبتدأ وخبر", "فاعلين"], correct: 0, level: 5 },
-        { text: "الممنوع من الصرف لا يقبل:", options: ["التنوين والكسرة", "الفتحة", "الضمة"], correct: 0, level: 6 },
-        { text: "الأسماء الخمسة ترفع بـ:", options: ["الواو", "الألف", "الياء"], correct: 0, level: 6 },
-        { text: "فعل الأمر يُبنى على السكون إذا:", options: ["صحيح الآخر", "معتل الآخر", "متصل بألف الاثنين"], correct: 0, level: 6 },
-        { text: "أفعال المقاربة مثل: كاد، أوشك، كرب", options: ["تفيد القرب", "تفيد الرجاء", "تفيد الشروع"], correct: 0, level: 7 },
-        { text: "أسلوب النداء بـ 'أيَا' يستخدم لـ:", options: ["البعيد", "القريب", "النكرة"], correct: 0, level: 7 },
+    // ======================= بنك الأسئلة الغني (أكثر من 100 سؤال) =======================
+    // المستوى 1: الضمير (18 سؤالاً)
+    const level1 = [
+        { text: "الضّمير هو كلمة تدلّ على:", options: ["حدث", "من يتكلّم أو يخاطَب أو يُتحدّث عنه", "زمن"], correct: 1, image: null },
+        { text: "من ضمائر المتكلّم:", options: ["أنا، نحن", "هو، هي", "أنتَ، أنتِ"], correct: 0, image: "https://via.placeholder.com/300x150/FFF5E0/2b6e2b?text=ضمائر+المتكلم" },
+        { text: "حدّد الضّمير في الجملة: 'هو طالب مجتهد'", options: ["طالب", "هو", "مجتهد"], correct: 1, image: null },
+        { text: "الضّمير 'أنتما' يدلّ على:", options: ["مفرد مذكّر", "مثنّى مخاطب", "جمع مؤنث"], correct: 1, image: null },
+        { text: "الضّمير المتّصل يكون:", options: ["متّصلاً بالاسم أو الفعل", "حرفاً مستقلاً", "يأتي وحده"], correct: 0, image: null },
+        { text: "الضّمير 'إيّاك' هو ضمير:", options: ["متّصل", "منفصل", "غائب"], correct: 1, image: null },
+        { text: "أعرب 'أنا' في 'أنا مجتهد':", options: ["فاعل", "مبتدأ", "مفعول به"], correct: 1, image: null },
+        { text: "الضّمير 'نحن' هو ضمير:", options: ["متّصل", "متكلّم", "مخاطب"], correct: 1, image: null },
+        { text: "من ضمائر الغائب:", options: ["أنا، نحن", "هو، هي، هم", "أنتَ، أنتِ"], correct: 1, image: null },
+        { text: "الضّمير 'كنتم' يدلّ على:", options: ["مفرد مذكر مخاطب", "جمع مذكر مخاطب", "جمع مؤنث غائب"], correct: 1, image: null },
+        { text: "الضّمير 'هما' يستخدم لـ:", options: ["المثنى المذكر", "المثنى المؤنث", "المثنى مذكراً كان أو مؤنثاً"], correct: 2, image: null },
+        { text: "في جملة 'أكرمت زيداً' الضمير المتصل هو:", options: ["أكرمت", "زيداً", "التاء"], correct: 2, image: null },
+        { text: "الضّمير البارز المنفصل يكون:", options: ["مبنياً في محل رفع أو نصب أو جر", "معرباً", "حرفاً"], correct: 0, image: null },
+        { text: "أعرب الضمير 'هو' في 'هو ذاهب':", options: ["مبتدأ", "فاعل", "خبر"], correct: 0, image: null },
+        { text: "الضّمير المستتر تقديره هو:", options: ["ضمير بارز", "ضمير لا يظهر لفظاً", "ضمير متصل"], correct: 1, image: null },
+        { text: "في 'اكتبا الدرس' الضمير المتصل:", options: ["ألف الاثنين", "تاء الفاعل", "ياء المتكلم"], correct: 0, image: null },
+        { text: "ضمير الرفع المتصل مثل:", options: ["تاء الفاعل", "كاف الخطاب", "ياء المتكلم"], correct: 0, image: null },
+        { text: "الضّمير 'أنتِ' للمخاطبة:", options: ["مفردة مؤنثة", "مثنى", "جمع"], correct: 0, image: null }
     ];
-    
-    // إكمال حتى 85 سؤالاً
-    for(let i=fullQuestionBank.length; i<85; i++){
-        fullQuestionBank.push({ text: `سؤال إضافي رقم ${i+1}: ما علامة رفع المبتدأ؟`, options: ["الضمة", "الفتحة", "السكون"], correct: 0, level: (i%7)+1 });
-    }
-    
-    // ======================= نظام اللعبة =======================
+
+    // المستوى 2: الفعل (18 سؤالاً)
+    const level2 = [
+        { text: "الفعل يدلّ على حدث مرتبط بـ:", options: ["مكان", "زمن", "شخص"], correct: 1, image: null },
+        { text: "الفعل الماضي يدلّ على حدث:", options: ["وقع وانتهى", "يحدث الآن", "سيحدث مستقبلاً"], correct: 0, image: "https://via.placeholder.com/300x150/FFF5E0/2b6e2b?text=الفعل+الماضي" },
+        { text: "حدّد الفعل المضارع:", options: ["كتب", "يكتب", "اكتب"], correct: 1, image: null },
+        { text: "الفعل الأمر يدلّ على:", options: ["طلب أو أمر", "حدث مضى", "حدث مستمر"], correct: 0, image: null },
+        { text: "الفعل 'ذهب' يدلّ على:", options: ["الحاضر", "الماضي", "المستقبل"], correct: 1, image: null },
+        { text: "حدّد دلالة 'سيسافر':", options: ["مستقبل", "أمر", "ماضي"], correct: 0, image: null },
+        { text: "أعرب 'قف' في 'قف عند الباب':", options: ["فعل أمر مبني على السكون", "فعل ماض", "فعل مضارع"], correct: 0, image: null },
+        { text: "الفعل المضارع يدلّ على:", options: ["حدث وقع", "حدث يحدث الآن أو مستمر", "حدث مستقبل فقط"], correct: 1, image: null },
+        { text: "علامة رفع الفعل المضارع الصحيح:", options: ["الضمة", "الفتحة", "السكون"], correct: 0, image: null },
+        { text: "الفعل 'لن يهملَ' يدلّ على:", options: ["الماضي", "المضارع المنصوب", "الأمر"], correct: 1, image: null },
+        { text: "الفعل المعتل الآخر مثل 'دعا' عند إسناده لتاء الفاعل:", options: ["يحذف حرف العلة", "يبقى كما هو", "يقلب ألفًا"], correct: 0, image: null },
+        { text: "الفعل 'يكتبُ' علامة رفعه:", options: ["الضمة الظاهرة", "الضمة المقدرة", "الواو"], correct: 0, image: null },
+        { text: "الأفعال الخمسة ترفع بـ:", options: ["ثبوت النون", "حذف النون", "الضمة"], correct: 0, image: null },
+        { text: "الفعل 'يدعو' في حالة الرفع علامته:", options: ["الضمة المقدرة", "الضمة الظاهرة", "الواو"], correct: 0, image: null },
+        { text: "الفعل 'أمرَ' من حيث الصحة والاعتلال:", options: ["صحيح", "معتل مثال", "معتل ناقص"], correct: 2, image: null },
+        { text: "الفعل 'قامَ' أصل حرف العلة:", options: ["واو", "ألف", "ياء"], correct: 0, image: null },
+        { text: "الفعل المضارع المعتل الآخر ينصب بـ:", options: ["الفتحة الظاهرة", "الفتحة المقدرة", "السكون"], correct: 1, image: null },
+        { text: "الفعل الماضي المبني للمجهول من 'كتب' هو:", options: ["كُتِبَ", "يُكتب", "اكتب"], correct: 0, image: null }
+    ];
+
+    // المستوى 3: النعت الحقيقي (12 سؤالاً)
+    const level3 = [
+        { text: "النعت الحقيقي يصف:", options: ["الاسم ويطابقه", "الفعل", "الحرف"], correct: 0, image: null },
+        { text: "في جملة 'رأيتُ ولداً مهذّباً' النعت هو:", options: ["رأيت", "ولداً", "مهذّباً"], correct: 2, image: "https://via.placeholder.com/300x150/FFF5E0/2b6e2b?text=النعت+الحقيقي" },
+        { text: "النعت الحقيقي يطابق المنعوت في:", options: ["الإعراب فقط", "الإعراب والجنس والعدد", "المعنى فقط"], correct: 1, image: null },
+        { text: "حدّد النعت في 'الحديقة الجميلة واسعة':", options: ["الحديقة", "الجميلة", "واسعة"], correct: 1, image: null },
+        { text: "أعرب 'الكبيرة' في 'رأيت السيارة الكبيرة':", options: ["مفعول به", "نعت منصوب", "خبر"], correct: 1, image: null },
+        { text: "أعرب 'الكسول' في 'التلميذ الكسول رسب':", options: ["نعت مرفوع", "فاعل", "خبر"], correct: 0, image: null },
+        { text: "رأيت الطالبتين... في الصف:", options: ["المجتهدتين", "المجتهدتان", "المجتهدة"], correct: 0, image: null },
+        { text: "رأيت اللوحة...", options: ["الجميلُ", "الجميلةَ", "الجميلَ"], correct: 1, image: null },
+        { text: "النعت يأتي بعد المنعوت ويتبعه في:", options: ["إعرابه", "لفظه", "معناه"], correct: 0, image: null },
+        { text: "في جملة 'مررت برجل كريم' النعت هو:", options: ["برجل", "كريم", "مررت"], correct: 1, image: null },
+        { text: "النعت الحقيقي من حيث الإعراب:", options: ["يُعرب حسب موقعه", "مبني", "تابع للمنعوت"], correct: 2, image: null },
+        { text: "جملة 'جاء الطالب المهذب' النعت فيها:", options: ["الطالب", "المهذب", "جاء"], correct: 1, image: null }
+    ];
+
+    // المستوى 4: أسماء الإشارة (14 سؤالاً)
+    const level4 = [
+        { text: "اسم الإشارة للمفرد المذكّر القريب:", options: ["هذا", "هذه", "هؤلاء"], correct: 0, image: "https://via.placeholder.com/300x150/FFF5E0/2b6e2b?text=هذا+للقراب" },
+        { text: "اسم الإشارة 'هاتانِ' للمثنى:", options: ["مذكّر", "مؤنّث", "جمع"], correct: 1, image: null },
+        { text: "أولئك اسم إشارة لـ:", options: ["المفرد البعيد", "الجمع البعيد", "المثنى القريب"], correct: 1, image: null },
+        { text: "اسم الإشارة المناسب للمثنى المذكر القريب:", options: ["هذان", "هتان", "ذلك"], correct: 0, image: null },
+        { text: "اسم الإشارة المناسب للمفرد المؤنث القريب:", options: ["هذه", "ذلك", "أولئك"], correct: 0, image: null },
+        { text: "(...) المنزل جميل:", options: ["هذا", "هؤلاء", "هذه"], correct: 0, image: null },
+        { text: "(...) الأقلام جديدة:", options: ["ذلك", "هؤلاء", "هذا"], correct: 1, image: null },
+        { text: "اسم الإشارة للمفرد المذكر البعيد:", options: ["هذا", "ذلك", "تلك"], correct: 1, image: null },
+        { text: "اسم الإشارة للمفرد المؤنث البعيد:", options: ["تلك", "هذه", "ذلك"], correct: 0, image: null },
+        { text: "اسم الإشارة للجمع المذكر القريب:", options: ["هؤلاء", "أولئك", "هذا"], correct: 0, image: null },
+        { text: "نقول عن أسماء الإشارة أنها:", options: ["معربة دائماً", "مبنية دائماً", "أفعال"], correct: 1, image: null },
+        { text: "أسماء الإشارة تستخدم لـ:", options: ["التعريف", "الإشارة إلى شيء معين", "النداء"], correct: 1, image: null },
+        { text: "جملة 'هاتان معلمتان' اسم الإشارة مناسب:", options: ["هاتان", "هذان", "هذه"], correct: 0, image: null },
+        { text: "اسم الإشارة للمثنى المؤنث البعيد:", options: ["تانك", "هاتان", "هذان"], correct: 0, image: null }
+    ];
+
+    // المستوى 5: الأسماء الموصولة (14 سؤالاً)
+    const level5 = [
+        { text: "الاسم الموصول يربط بين:", options: ["جملتين", "كلمتين", "حرفين"], correct: 0, image: "https://via.placeholder.com/300x150/FFF5E0/2b6e2b?text=الاسم+الموصول" },
+        { text: "الاسم الموصول 'الذي' يستخدم لـ:", options: ["مفرد مؤنث", "مفرد مذكر", "جمع"], correct: 1, image: null },
+        { text: "اللّذان اسم موصول لـ:", options: ["مثنى مذكر", "مثنى مؤنث", "جمع مذكر"], correct: 0, image: null },
+        { text: "حدّد الاسم الموصول في 'نجح التلميذ الذي اجتهد':", options: ["التلميذ", "الذي", "اجتهد"], correct: 1, image: null },
+        { text: "شاهدت الفتيات... فزن بالجائزة:", options: ["الذين", "اللواتي", "التي"], correct: 1, image: null },
+        { text: "الاسم الموصول المناسب للمذكر الجمع:", options: ["الذين", "الذي", "اللواتي"], correct: 0, image: null },
+        { text: "أعرب 'الذي' في 'الذي يجتهد ينجح':", options: ["مبتدأ", "فاعل", "نعت"], correct: 0, image: null },
+        { text: "الاسم الموصول للمفردة المؤنثة:", options: ["التي", "الذي", "الذين"], correct: 0, image: null },
+        { text: "الاسم الموصول للمثنى المؤنث:", options: ["اللتان", "اللذان", "اللواتي"], correct: 0, image: null },
+        { text: "الاسم الموصول للجمع المؤنث:", options: ["اللواتي", "اللاتي", "كلاهما"], correct: 2, image: null },
+        { text: "الاسم الموصول يأتي بعده:", options: ["جملة صلة الموصول", "خبر", "فاعل"], correct: 0, image: null },
+        { text: "صلَة الموصول لا محل لها من:", options: ["الإعراب", "المعنى", "البناء"], correct: 0, image: null },
+        { text: "جملة 'أكرمت الذي زارني' الاسم الموصول هو:", options: ["الذي", "أكرمت", "زارني"], correct: 0, image: null },
+        { text: "الأسماء الموصولة كلها:", options: ["مبنية", "معربة", "مشتركة"], correct: 0, image: null }
+    ];
+
+    // المستوى 6: همزة القطع والوصل (12 سؤالاً)
+    const level6 = [
+        { text: "همزة القطع تنطق في:", options: ["الابتداء فقط", "الابتداء والوصل", "لا تنطق"], correct: 1, image: "https://via.placeholder.com/300x150/FFF5E0/2b6e2b?text=همزة+القطع" },
+        { text: "كلمة 'أحمد' تبدأ بـ:", options: ["همزة وصل", "همزة قطع", "لام"], correct: 1, image: null },
+        { text: "كلمة 'اسم' همزتها:", options: ["وصل", "قطع", "متوسطة"], correct: 0, image: null },
+        { text: "الفعل 'أرسل' يبدأ بـ:", options: ["همزة وصل", "همزة قطع", "لا همزة"], correct: 1, image: null },
+        { text: "كل الأسماء التالية همزتها قطع ما عدا:", options: ["إبراهيم", "أمل", "اسم"], correct: 2, image: null },
+        { text: "كلمة 'إلى' تحتوي على:", options: ["همزة وصل", "همزة قطع", "همزة متطرفة"], correct: 1, image: null },
+        { text: "الكلمة التي همزتها ليست قطع:", options: ["استمع", "أو", "إذا"], correct: 0, image: null },
+        { text: "الفعل 'اكتب' يبدأ بـ:", options: ["همزة وصل", "همزة قطع", "لا همزة"], correct: 0, image: null },
+        { text: "همزة القطع تكتب:", options: ["على الألف", "على الواو", "على الياء"], correct: 0, image: null },
+        { text: "كلمة 'أمر' همزتها:", options: ["قطع", "وصل", "متوسطة"], correct: 0, image: null },
+        { text: "الفعل الثلاثي الماضي مثل 'أكل' يبدأ بـ:", options: ["همزة قطع", "همزة وصل", "لا همزة"], correct: 0, image: null },
+        { text: "كلمة 'استغفر' همزتها:", options: ["وصل", "قطع", "متوسطة"], correct: 0, image: null }
+    ];
+
+    // المستوى 7: كان وأخواتها (20 سؤالاً - جميع ما أرسلته + إضافات)
+    const level7 = [
+        { text: "كان وأخواتها تسمّى:", options: ["أفعال ناقصة", "أفعال تامّة", "أفعال ماضية فقط"], correct: 0, image: "https://via.placeholder.com/300x150/FFF5E0/2b6e2b?text=كان+وأخواتها" },
+        { text: "حدّد عمل كان وأخواتها:", options: ["رفع المبتدأ والخبر", "نصب المبتدأ ورفع الخبر", "رفع المبتدأ ونصب الخبر"], correct: 2, image: null },
+        { text: "عيّن اسم كان في 'كان الجوّ جميلا':", options: ["كان", "الجوّ", "جميلا"], correct: 1, image: null },
+        { text: "حدّد معنى صار في 'صار الماء ثلجا':", options: ["أصبح", "نفى", "تحوّل"], correct: 2, image: null },
+        { text: "يأتي اسم كان:", options: ["مرفوعا", "منصوبا", "مجرورا"], correct: 0, image: null },
+        { text: "يأتي خبر كان:", options: ["مجرورا", "منصوبا", "مجزوما"], correct: 1, image: null },
+        { text: "عيّن خبر أصبح في 'أصبح الطّالب نشيطا':", options: ["أصبح", "نشيطا", "لا شيء"], correct: 1, image: null },
+        { text: "يجوز أن يأتي خبر كان على شكل:", options: ["مفرد أو جملة", "شبه جملة", "جميع ماسبق"], correct: 2, image: null },
+        { text: "تفيد 'مازال الطالب مجتهدا':", options: ["الاستمرار", "النّفي", "الأمر"], correct: 0, image: null },
+        { text: "حدّد نوع الخبر في 'كان التّلميذ في القسم':", options: ["مفرد", "شبه جملة", "جملة اسميّة"], correct: 1, image: null },
+        { text: "من أخوات كان التي تفيد النفي:", options: ["ليس", "صار", "أصبح"], correct: 0, image: null },
+        { text: "أصبح تفيد:", options: ["التحول", "الصيرورة", "الدخول في الوقت"], correct: 1, image: null },
+        { text: "ظل تفيد:", options: ["الاستمرار", "النفي", "الرجاء"], correct: 0, image: null },
+        { text: "ما برح تفيد:", options: ["الاستمرار", "النفي", "التوكيد"], correct: 0, image: null },
+        { text: "في جملة 'ليت الشباب يعود' ليت من:", options: ["الحروف المشبهة بالفعل", "أفعال المقاربة", "كان وأخواتها"], correct: 0, image: null },
+        { text: "أفعال المقاربة مثل:", options: ["كاد", "أوشك", "كرب"], correct: 0, image: null },
+        { text: "خبر كان يجوز أن يكون:", options: ["مفرداً", "جملة", "شبه جملة وكل ما سبق"], correct: 2, image: null },
+        { text: "في 'كان زيدٌ قائماً' إعراب 'قائماً':", options: ["خبر كان منصوب", "مفعول به", "نعت"], correct: 0, image: null },
+        { text: "من أخوات كان التي تدل على الدوام:", options: ["ظل", "بات", "أضحى"], correct: 0, image: null },
+        { text: "ما دام تفيد:", options: ["المصاحبة الزمنية", "التحول", "النفي"], correct: 0, image: null }
+    ];
+
+    // تجميع المستويات مع عناوين
+    const levelsData = [
+        { id: 1, title: "📖 الدرس الأول: الضمير وأنواعه", questions: level1, requiredPercent: 0.7 },
+        { id: 2, title: "⏰ الدرس الثاني: الفعل ودلالته الزمنية", questions: level2, requiredPercent: 0.7 },
+        { id: 3, title: "🏷️ الدرس الثالث: النعت الحقيقي وأحكامه", questions: level3, requiredPercent: 0.7 },
+        { id: 4, title: "☝️ الدرس الرابع: أسماء الإشارة", questions: level4, requiredPercent: 0.7 },
+        { id: 5, title: "🔗 الدرس الخامس: الأسماء الموصولة", questions: level5, requiredPercent: 0.7 },
+        { id: 6, title: "ء الدرس السادس: همزة القطع والوصل", questions: level6, requiredPercent: 0.7 },
+        { id: 7, title: "📚 الدرس السابع: كان وأخواتها (الأفعال الناقصة)", questions: level7, requiredPercent: 0.7 }
+    ];
+
+    // كلمات تشجيعية
+    const levelCompleteMessages = [
+        "🎉 ممتاز! لقد أتممت المستوى بنجاح! أنت في الطريق الصحيح.",
+        "🌟 رائع! مستوى جديد ينتظرك. واصل تألقك!",
+        "💪 أحسنت! أنت تثبت جدارتك يوماً بعد يوم.",
+        "🏆 مذهل! إنجاز رائع. استعد للمستوى التالي.",
+        "📚 عبقري! لقد أتقنت هذا الدرس. إلى الأمام!"
+    ];
+    const encouragementMsgs = [
+        "🎉 أحسنت يا عبقري!", "🌟 ممتاز! أنت نابغة!", "💪 رائع! واصل هكذا",
+        "🧠 عبقري المستقبل!", "📚 إجابة صحيحة!", "🏆 أذهلتني! أحسنت"
+    ];
+
+    // متغيرات اللعبة
     let currentStudent = "";
     let currentLevel = 1;
-    let unlockedLevels = [1];
-    let levelBestScores = {};
-    let currentQuestions = [];
+    let completedLevels = [];
+    let levelScores = {};
+    let currentQuestionsList = [];
     let currentIndex = 0, currentScore = 0;
     let selectedOpt = null, timerInterval = null, timeLeft = 20, answeringFlag = false;
-    
-    const encouragementMsgs = ["🎉 أحسنت يا عبقري!", "🌟 ممتاز! أنت نابغة!", "💪 رائع! واصل هكذا", "🧠 عبقري المستقبل!", "📚 إجابة صحيحة!", "🏆 أذهلتني! أحسنت"];
-    const failMsgs = ["😓 حاول مرة أخرى!", "📖 راجع الدرس", "⚡ خطأ! لا تيأس", "🔁 فكّر مجدداً"];
-    
-    // تحميل البيانات المخزنة
+
+    // تحميل البيانات
     function loadSavedData() {
         let savedStudent = localStorage.getItem("arabicStudent");
         if(savedStudent) currentStudent = savedStudent;
-        let savedUnlocked = localStorage.getItem("unlockedLevels");
-        if(savedUnlocked) unlockedLevels = JSON.parse(savedUnlocked);
-        let savedScores = localStorage.getItem("levelBestScores");
-        if(savedScores) levelBestScores = JSON.parse(savedScores);
-        if(!unlockedLevels.includes(1)) unlockedLevels.push(1);
+        let savedCompleted = localStorage.getItem("completedLevels");
+        if(savedCompleted) completedLevels = JSON.parse(savedCompleted);
+        let savedScores = localStorage.getItem("levelScores");
+        if(savedScores) levelScores = JSON.parse(savedScores);
     }
-    
-    function saveAll(){
-        localStorage.setItem("unlockedLevels", JSON.stringify(unlockedLevels));
-        localStorage.setItem("levelBestScores", JSON.stringify(levelBestScores));
+
+    function saveAll() {
+        localStorage.setItem("completedLevels", JSON.stringify(completedLevels));
+        localStorage.setItem("levelScores", JSON.stringify(levelScores));
         if(currentStudent) localStorage.setItem("arabicStudent", currentStudent);
     }
-    
-    function getQuestionsForLevel(level){
-        let filtered = fullQuestionBank.filter(q => q.level === level);
-        if(filtered.length < 6) filtered = fullQuestionBank.filter(q => q.level <= level).slice(0, 10);
-        return filtered.slice(0, 10);
-    }
-    
-    function renderLevelBtns(){
-        const container = document.getElementById("levelButtons");
-        if(!container) return;
-        container.innerHTML = "";
-        for(let i=1; i<=7; i++){
-            let btn = document.createElement("button");
-            btn.innerText = `مستوى ${i}`;
-            btn.classList.add("level-btn");
-            if(i === currentLevel) btn.classList.add("active");
-            if(!unlockedLevels.includes(i)) btn.classList.add("locked");
-            btn.onclick = () => {
-                if(unlockedLevels.includes(i)){
-                    if(confirm(`الانتقال إلى المستوى ${i} سيتم إعادة تعيين التقدم الحالي. متابعة؟`)){
-                        currentLevel = i;
-                        initLevel();
-                    }
-                } else {
-                    alert(`🔒 المستوى ${i} مقفل! يجب تحقيق 80% في المستوى ${i-1} لفتحه.`);
-                }
-            };
-            container.appendChild(btn);
-        }
-    }
-    
-    function checkUnlockNext(){
-        let required = 0.8;
-        let percent = currentScore / currentQuestions.length;
-        if(percent >= required && currentLevel < 7 && !unlockedLevels.includes(currentLevel+1)){
-            unlockedLevels.push(currentLevel+1);
+
+    // التحقق من فتح المستوى التالي
+    function checkAndUnlockNextLevel() {
+        let percent = (currentScore / currentQuestionsList.length) * 100;
+        let requiredPercent = levelsData[currentLevel-1].requiredPercent * 100;
+        if(percent >= requiredPercent && !completedLevels.includes(currentLevel)) {
+            completedLevels.push(currentLevel);
+            levelScores[currentLevel] = Math.round(percent);
             saveAll();
-            renderLevelBtns();
-            alert(`🎉 تهانينا ${currentStudent || "الطالب"}! لقد فتحت المستوى ${currentLevel+1} بنسبة ${Math.round(percent*100)}%`);
+            let msg = levelCompleteMessages[Math.floor(Math.random() * levelCompleteMessages.length)];
+            showLevelCompleteMessage(msg, percent);
+            return true;
         }
+        return false;
     }
-    
-    function showCertificateAndFinish(){
-        let percent = (currentScore / currentQuestions.length) * 100;
+
+    function showLevelCompleteMessage(msg, percent) {
+        const gameContent = document.getElementById("dynamicContent");
+        gameContent.innerHTML = `
+            <div class="level-complete-msg">
+                <h2 style="color:#2b6e2b;">✨ إنجاز رائع ✨</h2>
+                <p style="font-size:1.3rem; margin:15px 0;">${msg}</p>
+                <p>نسبة إنجازك: ${Math.round(percent)}%</p>
+                <button id="continueBtn" class="btn btn-primary" style="margin-top:20px;">🚀 المستوى التالي</button>
+            </div>
+        `;
+        document.getElementById("continueBtn").addEventListener("click", () => {
+            if(currentLevel < 7) {
+                currentLevel++;
+                initLevel();
+            } else {
+                showFinalCertificate();
+            }
+        });
+    }
+
+    function showFinalCertificate() {
+        let totalPercent = (completedLevels.length / 7) * 100;
         let title = "";
-        if(percent >= 90) title = "أديب كبير / فيلسوف عبقري";
-        else if(percent >= 75) title = "كاتب متميز / محامي لامع";
-        else if(percent >= 60) title = "قاضي نزيه / شرطي يقظ";
-        else if(percent >= 45) title = "ربان سفينة / قائد طائرة";
+        if(totalPercent >= 90) title = "أديب كبير / فيلسوف عبقري";
+        else if(totalPercent >= 80) title = "كاتب متميز / محامي لامع";
+        else if(totalPercent >= 70) title = "قاضي نزيه / شرطي يقظ";
+        else if(totalPercent >= 60) title = "ربان سفينة / قائد طائرة";
         else title = "بطل مجتهد - واصل التقدم";
         
         let student = currentStudent || "الطالب المجتهد";
@@ -405,7 +552,8 @@
             <div class="certificate">
                 <h2>🏅 شهادة تقدير وعبقرية 🏅</h2>
                 <p>📜 يشهد أساتذة اللغة العربية أن الطالب/ة <strong>${student}</strong></p>
-                <p>قد أتم المستوى ${currentLevel} بنسبة نجاح ${Math.round(percent)}%</p>
+                <p>قد أتم جميع المستويات السبعة بنجاح!</p>
+                <p>🎯 المستويات المكتملة: ${completedLevels.length}/7</p>
                 <p>🌟 ويستحق لقب <strong style="color:#b45f1b;">${title}</strong> 🌟</p>
                 <p>✈️ أنت مؤهل لتكون ${title} بإذن الله</p>
                 <button id="restartGameBtn" class="btn btn-primary" style="margin:15px auto; display:inline-block;">🔄 لعب من جديد</button>
@@ -415,9 +563,10 @@
         document.getElementById("restartGameBtn")?.addEventListener("click", () => location.reload());
         document.getElementById("printCertBtn")?.addEventListener("click", () => { alert("استخدم Ctrl+P للطباعة"); window.print(); });
     }
-    
-    function stopTimer(){ if(timerInterval) clearInterval(timerInterval); timerInterval=null; }
-    function startTimer(){
+
+    // دوال اللعبة
+    function stopTimer() { if(timerInterval) clearInterval(timerInterval); timerInterval=null; }
+    function startTimer() {
         timeLeft = 20;
         let timerSpan = document.getElementById("timerVal");
         if(timerSpan) timerSpan.innerText = timeLeft;
@@ -442,24 +591,37 @@
             }
         },1000);
     }
-    
-    function nextQuestionAfterAnswer(){
-        if(currentIndex+1 < currentQuestions.length){
+
+    function nextQuestionAfterAnswer() {
+        if(currentIndex + 1 < currentQuestionsList.length){
             currentIndex++;
             loadCurrentQuestion();
         } else {
-            checkUnlockNext();
-            levelBestScores[currentLevel] = Math.max(levelBestScores[currentLevel]||0, currentScore);
-            saveAll();
-            showCertificateAndFinish();
+            let unlocked = checkAndUnlockNextLevel();
+            if(!unlocked && currentLevel < 7) {
+                alert(`نسبتك ${Math.round((currentScore/currentQuestionsList.length)*100)}%. تحتاج ${Math.round(levelsData[currentLevel-1].requiredPercent*100)}% لفتح المستوى التالي. أعد المحاولة!`);
+                initLevel();
+            } else if(currentLevel === 7 && completedLevels.includes(7)) {
+                showFinalCertificate();
+            }
         }
     }
-    
-    function loadCurrentQuestion(){
+
+    function loadCurrentQuestion() {
         selectedOpt = null;
         answeringFlag = false;
-        let q = currentQuestions[currentIndex];
+        let q = currentQuestionsList[currentIndex];
         document.getElementById("questionText").innerHTML = q.text;
+        
+        // عرض الصورة إن وجدت
+        let imgContainer = document.getElementById("questionImageContainer");
+        if(q.image && q.image !== null) {
+            imgContainer.innerHTML = `<img src="${q.image}" alt="صورة توضيحية">`;
+            imgContainer.style.display = "block";
+        } else {
+            imgContainer.style.display = "none";
+        }
+        
         let optsDiv = document.getElementById("optionsDiv");
         optsDiv.innerHTML = "";
         q.options.forEach((opt, idx) => {
@@ -474,44 +636,43 @@
             };
             optsDiv.appendChild(div);
         });
-        document.getElementById("qCounter").innerHTML = `${currentIndex+1}/${currentQuestions.length}`;
-        document.getElementById("levelScoreSpan").innerHTML = `${currentScore}/${currentQuestions.length}`;
+        document.getElementById("qCounter").innerHTML = `${currentIndex+1}/${currentQuestionsList.length}`;
+        document.getElementById("levelScoreSpan").innerHTML = `${currentScore}/${currentQuestionsList.length}`;
         startTimer();
     }
-    
-    function confirmAnswer(){
+
+    function confirmAnswer() {
         if(answeringFlag) return;
         if(selectedOpt === null){
             let fb = document.getElementById("feedbackMsg");
             if(fb) fb.innerHTML = "❌ اختر إجابة أولاً!";
             return;
         }
-        let q = currentQuestions[currentIndex];
+        let q = currentQuestionsList[currentIndex];
         let isCorrect = (selectedOpt === q.correct);
         stopTimer();
         answeringFlag = true;
         let fb = document.getElementById("feedbackMsg");
         if(isCorrect){
             currentScore++;
-            let msg = encouragementMsgs[Math.floor(Math.random()*encouragementMsgs.length)];
+            let msg = encouragementMsgs[Math.floor(Math.random() * encouragementMsgs.length)];
             fb.innerHTML = `✅ ${msg}`;
             fb.style.background = "#c8e6c9";
             playBeep(true);
         } else {
             let correctAns = q.options[q.correct];
-            let failMsg = failMsgs[Math.floor(Math.random()*failMsgs.length)];
-            fb.innerHTML = `❌ خطأ! الإجابة الصحيحة: ${correctAns}. ${failMsg}`;
+            fb.innerHTML = `❌ خطأ! الإجابة الصحيحة: ${correctAns}`;
             fb.style.background = "#ffcdd2";
             playBeep(false);
         }
         document.querySelectorAll(".opt").forEach(opt => opt.style.pointerEvents = "none");
         setTimeout(() => {
-            document.getElementById("levelScoreSpan").innerHTML = `${currentScore}/${currentQuestions.length}`;
+            document.getElementById("levelScoreSpan").innerHTML = `${currentScore}/${currentQuestionsList.length}`;
             nextQuestionAfterAnswer();
-        }, 1500);
+        }, 1300);
     }
-    
-    function playBeep(correct){
+
+    function playBeep(correct) {
         try{
             let ctx = new (AudioContext || webkitAudioContext)();
             let osc = ctx.createOscillator();
@@ -525,27 +686,58 @@
             osc.stop(ctx.currentTime+0.5);
         }catch(e){}
     }
-    
-    function initLevel(){
-        currentQuestions = getQuestionsForLevel(currentLevel);
+
+    function renderLevelButtons() {
+        const container = document.getElementById("levelButtons");
+        if(!container) return;
+        container.innerHTML = "";
+        for(let i=1; i<=7; i++){
+            let btn = document.createElement("button");
+            btn.innerText = `مستوى ${i}`;
+            btn.classList.add("level-btn");
+            if(i === currentLevel) btn.classList.add("active");
+            if(completedLevels.includes(i)) btn.classList.add("completed");
+            if(i > 1 && !completedLevels.includes(i-1)) btn.classList.add("locked");
+            btn.onclick = () => {
+                if(i === 1 || completedLevels.includes(i-1)) {
+                    if(confirm(`الانتقال إلى المستوى ${i}؟`)){
+                        currentLevel = i;
+                        initLevel();
+                    }
+                } else {
+                    alert(`🔒 يجب إكمال المستوى ${i-1} أولاً!`);
+                }
+            };
+            container.appendChild(btn);
+        }
+    }
+
+    function initLevel() {
+        const levelData = levelsData[currentLevel-1];
+        currentQuestionsList = [...levelData.questions];
         currentIndex = 0;
         currentScore = 0;
         selectedOpt = null;
         answeringFlag = false;
         stopTimer();
-        renderLevelBtns();
+        
         let studentDisplay = currentStudent || "لم يتم التسجيل";
+        let completedCount = completedLevels.length;
+        
         let html = `
             <div class="top-bar">
                 <div class="student-name-display">👤 ${studentDisplay}</div>
+                <div class="progress-summary">🏆 المستويات المكتملة: ${completedCount}/7</div>
                 <div class="level-buttons" id="levelButtons"></div>
             </div>
             <div class="quiz-area">
+                <div class="lesson-title">${levelData.title}</div>
                 <div class="info-row">
-                    <span>⭐ المستوى الحالي: <strong>${currentLevel}</strong></span>
-                    <span>🎯 نقاط المستوى: <span id="levelScoreSpan">0/${currentQuestions.length}</span></span>
-                    <span>⏱️ المتبقي: <span id="timerVal">20</span> ث</span>
+                    <span>⭐ المستوى: ${currentLevel}/7</span>
+                    <span>🎯 النقاط: <span id="levelScoreSpan">0/${currentQuestionsList.length}</span></span>
+                    <span>⏱️ الوقت: <span id="timerVal">20</span> ث</span>
                 </div>
+                <div id="questionImageContainer" class="question-image" style="display:none;"></div>
                 <div class="question" id="questionText"></div>
                 <div class="options" id="optionsDiv"></div>
                 <div class="actions">
@@ -555,29 +747,28 @@
                 <div class="feedback" id="feedbackMsg">✨ اختر الإجابة ثم اضغط تأكيد ✨</div>
                 <div class="info-row">
                     <span id="qCounter"></span>
-                    <span>💯 حفظ التقدم تلقائياً</span>
+                    <span>💯 النجاح يتطلب ${Math.round(levelData.requiredPercent*100)}%</span>
                 </div>
             </div>
         `;
         document.getElementById("dynamicContent").innerHTML = html;
         document.getElementById("confirmBtn").addEventListener("click", confirmAnswer);
         document.getElementById("exitBtn").addEventListener("click", () => { if(confirm("الخروج من اللعبة؟")) location.reload(); });
-        renderLevelBtns();
+        renderLevelButtons();
         loadCurrentQuestion();
     }
-    
-    // شاشة البداية مع زر دخول واضح
-    function showStartScreen(){
+
+    // شاشة البداية
+    function showStartScreen() {
         loadSavedData();
         let html = `
             <div class="start-screen">
-                <h2>🎮 مرحباً بك في تحدي العربية 🎮</h2>
-                <p style="color:#5a4a2e; margin-bottom:15px;">السنة الأولى متوسط - أسئلة تفاعلية ممتعة</p>
+                <h2>🎮 تحدي العربية - 100+ سؤال 🎮</h2>
+                <p style="color:#5a4a2e; margin-bottom:15px;">7 مستويات × أكثر من 100 سؤال في قواعد اللغة العربية</p>
                 <input type="text" id="startNameInput" placeholder="اكتب اسمك هنا..." value="${currentStudent}">
                 <br>
                 <button class="start-btn" id="enterGameBtn">🚪 دخول إلى اللعبة</button>
-                <p style="margin-top:25px; color:#8b6946;">✨ ستنطلق في رحلة عبر 7 مستويات ✨</p>
-                <p style="font-size:0.85rem;">📚 أكثر من 85 سؤالاً في قواعد اللغة العربية</p>
+                <p style="margin-top:25px; color:#8b6946;">✨ رحلة ممتعة عبر دروس: الضمير، الفعل، النعت، أسماء الإشارة، الموصولات، همزة القطع، كان وأخواتها ✨</p>
             </div>
         `;
         document.getElementById("dynamicContent").innerHTML = html;
@@ -592,7 +783,7 @@
             initLevel();
         });
     }
-    
+
     showStartScreen();
 </script>
 </body>
